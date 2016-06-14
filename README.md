@@ -1,4 +1,12 @@
-# lowdb [![NPM version](https://badge.fury.io/js/lowdb.svg)](http://badge.fury.io/js/lowdb) [![Build Status](https://travis-ci.org/typicode/lowdb.svg?branch=master)](https://travis-ci.org/typicode/lowdb)
+# node-flat-db
+
+[![Npm Version](https://img.shields.io/npm/v/node-flat-db.svg)](https://www.npmjs.com/package/node-flat-db)
+[![Dependency Status](https://david-dm.org/gabrielcsapo/node-flat-db.svg)](https://david-dm.org/gabrielcsapo/node-flat-db)
+[![devDependency Status](https://david-dm.org/gabrielcsapo/node-flat-db/dev-status.svg)](https://david-dm.org/gabrielcsapo/node-flat-db#info=devDependencies)
+[![npm](https://img.shields.io/npm/dt/node-flat-db.svg)]()
+[![npm](https://img.shields.io/npm/dm/node-flat-db.svg)]()
+
+> This is a fork of [lowdb](https://github.com/typicode/lowdb) they broke the api and no longer is as stable as before
 
 > Need a quick way to get a local database for a CLI, an Electron app, a small server or the browser?
 
