@@ -28,14 +28,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/typicode/lowdb.git"
+    "url": "git@github.com:gabrielcsapo/node-flat-db.git"
   },
-  "author": "Typicode <typicode@gmail.com>",
+  "author": "Gabriel J. Csapo <gabecsapo@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/typicode/lowdb/issues"
+    "url": "https://github.com/gabrielcsapo/node-flat-db/issues"
   },
-  "homepage": "https://github.com/typicode/lowdb",
+  "homepage": "https://github.com/gabrielcsapo/node-flat-db",
   "dependencies": {
     "graceful-fs": "^4.1.3",
     "is-promise": "^2.1.0",
