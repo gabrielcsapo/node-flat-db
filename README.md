@@ -410,4 +410,4 @@ However, if you seek high performance and scalability more than simplicity, you 
 
 ## License
 
-MIT - [Typicode](https://github.com/typicode)
+MIT - [Gabriel J. Csapo](https://github.com/gabrielcsapo)
