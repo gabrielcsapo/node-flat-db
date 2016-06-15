@@ -22,9 +22,9 @@
     "prepublish": "npm run build",
     "precommit": "npm test",
     "build": "npm run babel && npm run umd && npm run min",
-    "babel": "babel src --out-dir . --ignore dist.js",
-    "umd": "webpack src/dist.js dist/flat-db.js --output-library low",
-    "min": "webpack -p src/dist.js dist/flat-db.min.js --output-library low"
+    "babel": "babel src --out-dir .build --ignore dist.js",
+    "umd": "webpack src/dist.js dist/flat-db.js --output-library flat-db",
+    "min": "webpack -p src/dist.js dist/flat-db.min.js --output-library flat-db"
   },
   "repository": {
     "type": "git",
