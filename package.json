@@ -1,6 +1,6 @@
 {
   "name": "node-flat-db",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "JSON database for Node and the browser powered by lodash",
   "keywords": [
     "flat",
