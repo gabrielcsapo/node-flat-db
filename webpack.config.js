@@ -1,6 +1,6 @@
 var webpack = require('webpack')
 var pkg = require('./package.json')
-var banner = 'lowdb v' + pkg.version
+var banner = 'flat-db v' + pkg.version
 
 module.exports = {
   output: {
