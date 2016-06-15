@@ -13,12 +13,12 @@
 ## Example
 
 ```js
-const low = require('lowdb')
-const storage = require('lowdb/file-sync')
+const low = require('flat-db')
+const storage = require('flat-db/file-sync')
 
 const db = low('db.json', { storage })
 
-db('posts').push({ title: 'lowdb is awesome'})
+db('posts').push({ title: 'flat-db is awesome'})
 ```
 
 Database is __automatically__ saved to `db.json`.
@@ -26,7 +26,7 @@ Database is __automatically__ saved to `db.json`.
 ```js
 {
   "posts": [
-    { "title": "lowdb is awesome" }
+    { "title": "flat-db is awesome" }
   ]
 }
 ```
@@ -34,7 +34,7 @@ Database is __automatically__ saved to `db.json`.
 You can query and manipulate it using __any__ [lodash](https://lodash.com/docs) __method__.
 
 ```js
-db('posts').find({ title: 'lowdb is awesome' })
+db('posts').find({ title: 'flat-db is awesome' })
 ```
 
 And access underlying database object any time.
@@ -43,7 +43,7 @@ And access underlying database object any time.
 db.object.posts
 ```
 
-__[Click here to try lowdb in the browser.](http://typicode.github.io/lowdb/)__
+__[Click here to try flat-db in the browser.](http://typicode.github.io/flat-db/)__
 
 ## ES2015
 
@@ -53,20 +53,20 @@ Examples use ES2015 syntax for convenience, but you can use ES5 syntax too. For 
 var db = low('db.json', { storage: storage })
 ```
 
-Please note also that lowdb can only be run in one instance of Node, it doesn't support Cluster.
+Please note also that flat-db can only be run in one instance of Node, it doesn't support Cluster.
 
 ## Installation
 
 Using npm:
 
 ```bash
-npm install lowdb --save
+npm install flat-db --save
 ```
 
 A standalone UMD build is also available on [npmcdn](https://npmcdn.com/):
 
 ```html
-<script src="http://npmcdn.com/lowdb@^0.12.4/dist/lowdb.min.js"></script>
+<script src="http://npmcdn.com/flat-db@^0.12.4/dist/flat-db.min.js"></script>
 <script>
   var db = low() // in-memory
   var db = low('db', { storage: low.localStorage }) // localStorage
@@ -83,23 +83,23 @@ A standalone UMD build is also available on [npmcdn](https://npmcdn.com/):
   * __Mixins__ (id support, ...)
   * __Encryption__
 
-Lowdb is also very easy to learn since it has __only a few methods and properties__.
+flat-db is also very easy to learn since it has __only a few methods and properties__.
 
-_lowdb powers [json-server](https://github.com/typicode/json-server) package, [jsonplaceholder](http://jsonplaceholder.typicode.com/) website and [many other great projects](https://www.npmjs.com/browse/depended/lowdb)._
+_flat-db powers [json-server](https://github.com/typicode/json-server) package, [jsonplaceholder](http://jsonplaceholder.typicode.com/) website and [many other great projects](https://www.npmjs.com/browse/depended/flat-db)._
 
 ## Usage examples
 
 Depending on the context, you can use different storages and formats.
 
-Lowdb comes bundled with `file-sync`, `file-async` and `browser` storages, but you can also write your own if needed.
+flat-db comes bundled with `file-sync`, `file-async` and `browser` storages, but you can also write your own if needed.
 
 ### CLI
 
-For CLIs, it's easier to use `lowdb/file-sync` synchronous file storage .
+For CLIs, it's easier to use `flat-db/file-sync` synchronous file storage .
 
 ```js
-const low = require('lowdb')
-const storage = require('lowdb/file-sync')
+const low = require('flat-db')
+const storage = require('flat-db/file-sync')
 
 const db = low('db.json', { storage })
 
@@ -109,7 +109,7 @@ const user = db('users').find({ name: 'typicode' })
 
 ### Server
 
-For servers, it's better to avoid blocking requests. Use `lowdb/file-async` asynchronous file storage.
+For servers, it's better to avoid blocking requests. Use `flat-db/file-async` asynchronous file storage.
 
 __Important__
 
@@ -117,8 +117,8 @@ __Important__
 * When you read from the database, the result is immediately returned.
 
 ```js
-const low = require('lowdb').
-const storage = require('lowdb/file-async')
+const low = require('flat-db').
+const storage = require('flat-db/file-async')
 
 const db = low('db.json', { storage })
 
@@ -138,11 +138,11 @@ app.post('/posts', (req, res) => {
 
 ### Browser
 
-In the browser, `lowdb/browser` will add `localStorage` support.
+In the browser, `flat-db/browser` will add `localStorage` support.
 
 ```js
-const low = require('lowdb')
-const storage = require('lowdb/browser')
+const low = require('flat-db')
+const storage = require('flat-db/browser')
 
 const db = low('db', { storage })
 
@@ -152,10 +152,10 @@ const user = db('users').find({ name: 'typicode' })
 
 ### In-memory
 
-For the best performance, use lowdb in-memory storage.
+For the best performance, use flat-db in-memory storage.
 
 ```js
-const low = require('lowdb')
+const low = require('flat-db')
 const db = low()
 
 db('users').push({ name: 'typicode' })
@@ -177,7 +177,7 @@ low('db.json', { storage: /* */ }, false)  // auto write disabled
 
 // To create read-only or write-only database,
 // set only storage.read or storage.write
-const fileSync = require('lowdb/file-sync')
+const fileSync = require('flat-db/file-sync')
 
 // write-only
 low('db.json', {
@@ -247,7 +247,7 @@ __db.write([source])__
 
 Persists database using `storage.write` method. Depending on the storage, it may return a promise.
 
-Note: by default, lowdb automatically calls it when database changes.
+Note: by default, flat-db automatically calls it when database changes.
 
 ```js
 const db = low('db.json', { storage })
@@ -269,7 +269,7 @@ db.read('copy.json') // reads copy.json
 
 ### How to query
 
-With lowdb, you get access to the entire [lodash API](http://lodash.com/), so there is many ways to query and manipulate data. Here are a few examples to get you started.
+With flat-db, you get access to the entire [lodash API](http://lodash.com/), so there is many ways to query and manipulate data. Here are a few examples to get you started.
 
 Please note that data is returned by reference, this means that modifications to returned objects may change the database. To avoid such behaviour, you need to use `.cloneDeep()`.
 
@@ -324,7 +324,7 @@ db('posts').remove({ title: 'low!' })
 
 ### How to use id based resources
 
-Being able to retrieve data using an id can be quite useful, particularly in servers. To add id-based resources support to lowdb, you have 2 options.
+Being able to retrieve data using an id can be quite useful, particularly in servers. To add id-based resources support to flat-db, you have 2 options.
 
 [underscore-db](https://github.com/typicode/underscore-db) provides a set of helpers for creating and manipulating id-based resources.
 
@@ -348,15 +348,15 @@ const post = db('posts').find({ id: postId })
 
 ### How to use custom format
 
-By default, lowdb storages will use `JSON` to `parse` and `stringify` database object.
+By default, flat-db storages will use `JSON` to `parse` and `stringify` database object.
 
-But it's also possible to specify custom `format.serializer` and `format.deserializer` methods that will be passed by lowdb to `storage.read` and `storage.write` methods.
+But it's also possible to specify custom `format.serializer` and `format.deserializer` methods that will be passed by flat-db to `storage.read` and `storage.write` methods.
 
 For example, if you want to store database in `.bson` files ([MongoDB file format](https://github.com/mongodb/js-bson)):
 
 ```js
-const low = require('lowdb')
-const storage = require('lowdb/file-sync')
+const low = require('flat-db')
+const storage = require('flat-db/file-sync')
 const bson = require('bson')
 const BSON = new bson.BSONPure.BSON()
 
@@ -399,11 +399,11 @@ const db = low('db.json', {
 
 ## Changelog
 
-See changes for each version in the [release notes](https://github.com/typicode/lowdb/releases).
+See changes for each version in the [release notes](https://github.com/typicode/flat-db/releases).
 
 ## Limits
 
-lowdb is a convenient method for storing data without setting up a database server. It is fast enough and safe to be used as an embedded database.
+flat-db is a convenient method for storing data without setting up a database server. It is fast enough and safe to be used as an embedded database.
 
 However, if you seek high performance and scalability more than simplicity, you should probably stick to traditional databases like MongoDB.
 
