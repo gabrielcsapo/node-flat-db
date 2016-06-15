@@ -7,7 +7,7 @@
 [![npm](https://img.shields.io/npm/dt/node-flat-db.svg)]()
 [![npm](https://img.shields.io/npm/dm/node-flat-db.svg)]()
 
-> This is a fork of [lowdb](https://github.com/typicode/lowdb) they broke the api and no longer is as stable as before
+> This is a fork of [lowdb](https://github.com/typicode/lowdb) before they broke the api and no longer is as stable as before (fork of 12.5 lowdb)
 
 > Need a quick way to get a local database for a CLI, an Electron app, a small server or the browser?
 
