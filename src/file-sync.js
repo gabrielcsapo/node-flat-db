@@ -1,28 +1,39 @@
-const fs = require('graceful-fs')
-const { parse, stringify } = require('./json')
+'use strict';
+
+var fs = require('graceful-fs');
+
+var _require = require('./json');
+
+var parse = _require.parse;
+var stringify = _require.stringify;
+
 
 module.exports = {
-  read: (source, deserialize = parse) => {
+  read: function read(source) {
+    var deserialize = arguments.length <= 1 || arguments[1] === undefined ? parse : arguments[1];
+
     if (fs.existsSync(source)) {
       // Read database
-      const data = fs.readFileSync(source, 'utf-8').trim() || '{}'
+      var data = fs.readFileSync(source, 'utf-8').trim() || '{}';
 
       try {
-        return deserialize(data)
+        return deserialize(data);
       } catch (e) {
         if (e instanceof SyntaxError) {
-          e.message = `Malformed JSON in file: ${source}\n${e.message}`
+          e.message = 'Malformed JSON in file: ' + source + '\n' + e.message;
         }
-        throw e
+        throw e;
       }
     } else {
       // Initialize empty database
-      fs.writeFileSync(source, '{}')
-      return {}
+      fs.writeFileSync(source, '{}');
+      return {};
     }
   },
-  write: (dest, obj, serialize = stringify) => {
-    const data = serialize(obj)
-    fs.writeFileSync(dest, data)
+  write: function write(dest, obj) {
+    var serialize = arguments.length <= 2 || arguments[2] === undefined ? stringify : arguments[2];
+
+    var data = serialize(obj);
+    fs.writeFileSync(dest, data);
   }
-}
+};
