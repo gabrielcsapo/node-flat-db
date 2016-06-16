@@ -1,5 +1,7 @@
-const lodash = require('lodash')
-const isPromise = require('is-promise')
+'use strict';
+
+var lodash = require('lodash');
+var isPromise = require('is-promise');
 
 // Returns a lodash chain that calls .value()
 // automatically after the first .method()
@@ -11,111 +13,130 @@ const isPromise = require('is-promise')
 //
 // is the same as:
 // _.chain(array).method().value()
-function lowChain (_, array, save) {
-  const chain = _.chain(array)
+function lowChain(_, array, save) {
+  var chain = _.chain(array);
 
-  _.functionsIn(chain)
-    .forEach(method => {
-      chain[method] = _.flow(chain[method], arg => {
-        let v
-        if (arg) {
-          v = _.isFunction(arg.value) ? arg.value() : arg
-        }
+  _.functionsIn(chain).forEach(function (method) {
+    chain[method] = _.flow(chain[method], function (arg) {
+      var v = void 0;
+      if (arg) {
+        v = _.isFunction(arg.value) ? arg.value() : arg;
+      }
 
-        const s = save()
+      var s = save();
 
-        if (s) return s.then(() => Promise.resolve(v))
-        return v
-      })
-    })
+      if (s) return s.then(function () {
+        return Promise.resolve(v);
+      });
+      return v;
+    });
+  });
 
-  return chain
+  return chain;
 }
 
-function low (source, options = {}, writeOnChange = true) {
+function low(source) {
+  var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var writeOnChange = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
+
   // Create a fresh copy of lodash
-  const _ = lodash.runInContext()
+  var _ = lodash.runInContext();
 
   if (source) {
     if (options.storage) {
-      const { storage } = options
+      (function () {
+        var storage = options.storage;
 
-      if (storage.read) {
-        db.read = (s = source) => {
-          const res = storage.read(s, db.deserialize)
 
-          if (isPromise(res)) {
-            return res.then((obj) => {
-              db.object = obj
-              db._checksum = JSON.stringify(db.object)
+        if (storage.read) {
+          db.read = function () {
+            var s = arguments.length <= 0 || arguments[0] === undefined ? source : arguments[0];
 
-              return db
-            })
-          }
+            var res = storage.read(s, db.deserialize);
 
-          db.object = res
-          db._checksum = JSON.stringify(db.object)
+            if (isPromise(res)) {
+              return res.then(function (obj) {
+                db.object = obj;
+                db._checksum = JSON.stringify(db.object);
 
-          return db
+                return db;
+              });
+            }
+
+            db.object = res;
+            db._checksum = JSON.stringify(db.object);
+
+            return db;
+          };
         }
-      }
 
-      if (storage.write) {
-        db.write = (dest = source) => storage.write(dest, db.object, db.serialize)
-      }
+        if (storage.write) {
+          db.write = function () {
+            var dest = arguments.length <= 0 || arguments[0] === undefined ? source : arguments[0];
+            return storage.write(dest, db.object, db.serialize);
+          };
+        }
+      })();
     }
 
     if (options.format) {
-      const { format } = options
-      db.serialize = format.serialize
-      db.deserialize = format.deserialize
+      var format = options.format;
+
+      db.serialize = format.serialize;
+      db.deserialize = format.deserialize;
     }
   }
 
   // Modify value function to call save before returning result
   _.prototype.value = _.wrap(_.prototype.value, function (value) {
-    const v = value.apply(this)
-    const s = _save()
+    var v = value.apply(this);
+    var s = _save();
 
-    if (s) return s.then(() => Promise.resolve(v))
-    return v
-  })
+    if (s) return s.then(function () {
+      return Promise.resolve(v);
+    });
+    return v;
+  });
 
   // Return a promise or nothing in sync mode or if the database hasn't changed
-  function _save () {
+  function _save() {
     if (db.source && db.write && writeOnChange) {
-      const str = JSON.stringify(db.object)
+      var str = JSON.stringify(db.object);
 
       if (str !== db._checksum) {
-        db._checksum = str
-        return db.write(db.source, db.object)
+        db._checksum = str;
+        return db.write(db.source, db.object);
       }
     }
   }
 
-  function db (key) {
+  function db(key) {
     if (typeof db.object[key] === 'undefined') {
-      db.object[key] = []
+      db.object[key] = [];
     }
-    let array = db.object[key]
-    let short = lowChain(_, array, _save)
-    short.chain = () => _.chain(array)
+    var array = db.object[key];
+    var short = lowChain(_, array, _save);
+    short.chain = function () {
+      return _.chain(array);
+    };
     // Prevents db.write being called when just calling db('foo').value()
-    short.value = () => db.object[key]
-    return short
+    short.value = function () {
+      return db.object[key];
+    };
+    return short;
   }
 
   // Expose
-  db._ = _
-  db.object = {}
-  db.source = source
+  db._ = _;
+  db.object = {};
+  db.source = source;
 
   // Init
   if (db.read) {
-    return db.read()
+    return db.read();
   } else {
-    return db
+    return db;
   }
 }
 
-module.exports = low
+module.exports = low;

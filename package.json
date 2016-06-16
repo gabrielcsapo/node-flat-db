@@ -21,8 +21,7 @@
     "test": "babel-node test/all | tap-spec",
     "prepublish": "npm run build",
     "precommit": "npm test",
-    "build": "npm run babel && npm run umd && npm run min",
-    "babel": "babel src --out-dir .build --ignore dist.js",
+    "build": "npm run umd && npm run min",
     "umd": "webpack src/dist.js dist/flat-db.js --output-library flat-db",
     "min": "webpack -p src/dist.js dist/flat-db.min.js --output-library flat-db"
   },
