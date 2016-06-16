@@ -165,6 +165,22 @@ const user = db('users').find({ name: 'typicode' })
 
 Please note that, as an alternative, you can also disable `writeOnChange` if you want to control when data is written.
 
+## Compression
+
+> compresses 1000 record db from `77kb` to `7kb`
+
+The best way to use node-flat-db if space constraint is an issue, use lzstring adapter
+
+```js
+const flat = require('node-flat-db')
+const storage = require('node-flat-db/file-compress-sync')
+
+const db = flat('db', { storage })
+
+db('users').push({ name: 'typicode' })
+const user = db('users').find({ name: 'typicode' })
+```
+
 ## API
 
 __flat([filename, [storage, [writeOnChange = true]]])__

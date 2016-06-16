@@ -19,3 +19,21 @@ for(var i = 0; i < 1000; i++) {
 }
 
 fs.writeFileSync('./benchmark/stats/update.json', JSON.stringify(stats, null, 4));
+
+var stats = {};
+var storage = require('../src/file-compress-sync');
+var db = flat('./benchmark/db-compressed.json', { storage: storage });
+
+for(var i = 0; i < 1000; i++) {
+    var start = microtime.now();
+    db('posts')
+      .chain()
+      .find({ id: i })
+      .assign({ title: 'node-flat-db is awesome!++'});
+    stats[i] = {
+        time: microtime.now() - start,
+        size: filesize(fs.statSync('./benchmark/db-compressed.json')['size'])
+    };
+}
+
+fs.writeFileSync('./benchmark/stats/update-compressed.json', JSON.stringify(stats, null, 4));

@@ -41,6 +41,7 @@
     "is-promise": "^2.1.0",
     "json-parse-helpfulerror": "^1.0.3",
     "lodash": "^4.0.0",
+    "lz-string": "^1.4.4",
     "steno": "^0.4.1"
   },
   "devDependencies": {

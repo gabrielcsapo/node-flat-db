@@ -17,3 +17,19 @@ for(var i = 1000; i > 0; i--) {
 }
 
 fs.writeFileSync('./benchmark/stats/delete.json', JSON.stringify(stats, null, 4));
+
+var stats = {};
+var storage = require('../src/file-compress-sync');
+var db = flat('./benchmark/db-compressed.json', { storage: storage });
+
+for(var i = 1000; i > 0; i--) {
+    var start = microtime.now();
+    db('posts')
+      .remove({ id: i });
+    stats[i] = {
+        time: microtime.now() - start,
+        size: filesize(fs.statSync('./benchmark/db-compressed.json')['size'])
+    };
+}
+
+fs.writeFileSync('./benchmark/stats/delete-compressed.json', JSON.stringify(stats, null, 4));
