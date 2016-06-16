@@ -14,7 +14,7 @@
 ## Example
 
 ```js
-const low = require('node-flat-db')
+const flat = require('node-flat-db')
 const storage = require('node-flat-db/file-sync')
 
 const db = flat('db.json', { storage })
@@ -70,7 +70,7 @@ A standalone UMD build is also available on [npmcdn](https://npmcdn.com/):
 <script src="http://npmcdn.com/node-flat-db@^0.12.4/dist/node-flat-db.min.js"></script>
 <script>
   var db = flat() // in-memory
-  var db = flat('db', { storage: low.localStorage }) // localStorage
+  var db = flat('db', { storage: flat.localStorage }) // localStorage
 </script>
 ```
 
