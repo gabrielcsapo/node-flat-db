@@ -1,6 +1,6 @@
 var webpack = require('webpack')
 var pkg = require('./package.json')
-var banner = 'flat-db v' + pkg.version
+var banner = 'node-flat-db v' + pkg.version
 
 module.exports = {
   output: {

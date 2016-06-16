@@ -1,6 +1,6 @@
 {
   "name": "node-flat-db",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "JSON database for Node and the browser powered by lodash",
   "keywords": [
     "flat",
@@ -23,8 +23,8 @@
     "prepublish": "npm run build",
     "precommit": "npm test",
     "build": "npm run umd && npm run min",
-    "umd": "webpack src/dist.js dist/flat-db.js --output-library flat-db",
-    "min": "webpack -p src/dist.js dist/flat-db.min.js --output-library flat-db"
+    "umd": "webpack src/dist.js dist/node-flat-db.js --output-library node-flat-db",
+    "min": "webpack -p src/dist.js dist/node-flat-db.min.js --output-library node-flat-db"
   },
   "repository": {
     "type": "git",
