@@ -17,7 +17,7 @@
 const low = require('node-flat-db')
 const storage = require('node-flat-db/file-sync')
 
-const db = low('db.json', { storage })
+const db = flat('db.json', { storage })
 
 db('posts').push({ title: 'node-flat-db is awesome'})
 ```
@@ -51,7 +51,7 @@ __[Click here to try node-flat-db in the browser.](http://typicode.github.io/nod
 Examples use ES2015 syntax for convenience, but you can use ES5 syntax too. For example:
 
 ```js
-var db = low('db.json', { storage: storage })
+var db = flat('db.json', { storage: storage })
 ```
 
 Please note also that node-flat-db can only be run in one instance of Node, it doesn't support Cluster.
@@ -69,8 +69,8 @@ A standalone UMD build is also available on [npmcdn](https://npmcdn.com/):
 ```html
 <script src="http://npmcdn.com/node-flat-db@^0.12.4/dist/node-flat-db.min.js"></script>
 <script>
-  var db = low() // in-memory
-  var db = low('db', { storage: low.localStorage }) // localStorage
+  var db = flat() // in-memory
+  var db = flat('db', { storage: low.localStorage }) // localStorage
 </script>
 ```
 
@@ -99,10 +99,10 @@ node-flat-db comes bundled with `file-sync`, `file-async` and `browser` storages
 For CLIs, it's easier to use `node-flat-db/file-sync` synchronous file storage .
 
 ```js
-const low = require('node-flat-db')
+const flat = require('node-flat-db')
 const storage = require('node-flat-db/file-sync')
 
-const db = low('db.json', { storage })
+const db = flat('db.json', { storage })
 
 db('users').push({ name: 'typicode' })
 const user = db('users').find({ name: 'typicode' })
@@ -118,10 +118,10 @@ __Important__
 * When you read from the database, the result is immediately returned.
 
 ```js
-const low = require('node-flat-db').
+const flat = require('node-flat-db').
 const storage = require('node-flat-db/file-async')
 
-const db = low('db.json', { storage })
+const db = flat('db.json', { storage })
 
 app.get('/posts/:id', (req, res) => {
   // Returns a post
@@ -142,10 +142,10 @@ app.post('/posts', (req, res) => {
 In the browser, `node-flat-db/browser` will add `localStorage` support.
 
 ```js
-const low = require('node-flat-db')
+const flat = require('node-flat-db')
 const storage = require('node-flat-db/browser')
 
-const db = low('db', { storage })
+const db = flat('db', { storage })
 
 db('users').push({ name: 'typicode' })
 const user = db('users').find({ name: 'typicode' })
@@ -156,8 +156,8 @@ const user = db('users').find({ name: 'typicode' })
 For the best performance, use node-flat-db in-memory storage.
 
 ```js
-const low = require('node-flat-db')
-const db = low()
+const flat = require('node-flat-db')
+const db = flat()
 
 db('users').push({ name: 'typicode' })
 const user = db('users').find({ name: 'typicode' })
@@ -167,26 +167,26 @@ Please note that, as an alternative, you can also disable `writeOnChange` if you
 
 ## API
 
-__low([filename, [storage, [writeOnChange = true]]])__
+__flat([filename, [storage, [writeOnChange = true]]])__
 
 Creates a new database instance. Here are some examples:
 
 ```js
-low()                                      // in-memory
-low('db.json', { storage: /* */ })         // persisted
-low('db.json', { storage: /* */ }, false)  // auto write disabled
+flat()                                      // in-memory
+flat('db.json', { storage: /* */ })         // persisted
+flat('db.json', { storage: /* */ }, false)  // auto write disabled
 
 // To create read-only or write-only database,
 // set only storage.read or storage.write
 const fileSync = require('node-flat-db/file-sync')
 
 // write-only
-low('db.json', {
+flat('db.json', {
   storage: { write: fileSync.write }
 })
 
 // read-only
-low('db.json', {
+flat('db.json', {
   storage: { read: fileSync.read }
 })
 ```
@@ -206,7 +206,7 @@ const myFormat = {
   }
 }
 
-low(source, { storage: myStorage, format: myFormat }, writeOnChange)
+flat(source, { storage: myStorage, format: myFormat }, writeOnChange)
 ```
 
 __db.___
@@ -251,7 +251,7 @@ Persists database using `storage.write` method. Depending on the storage, it may
 Note: by default, node-flat-db automatically calls it when database changes.
 
 ```js
-const db = low('db.json', { storage })
+const db = flat('db.json', { storage })
 db.write()            // writes to db.json
 db.write('copy.json') // writes to copy.json
 ```
@@ -261,7 +261,7 @@ __db.read([source])__
 Reads source using `storage.read` method. Depending on the storage, it may return a promise.
 
 ```js
-const db = low('db.json', { storage })
+const db = flat('db.json', { storage })
 db.read()            // re-reads db.json
 db.read('copy.json') // reads copy.json
 ```
@@ -312,7 +312,7 @@ Update a post.
 ```js
 db('posts')
   .chain()
-  .find({ title: 'low!' })
+  .find({ title: 'flat!' })
   .assign({ title: 'hi!'})
   .value()
 ```
@@ -320,7 +320,7 @@ db('posts')
 Remove posts.
 
 ```js
-db('posts').remove({ title: 'low!' })
+db('posts').remove({ title: 'flat!' })
 ```
 
 ### How to use id based resources
@@ -330,11 +330,11 @@ Being able to retrieve data using an id can be quite useful, particularly in ser
 [underscore-db](https://github.com/typicode/underscore-db) provides a set of helpers for creating and manipulating id-based resources.
 
 ```js
-const db = low('db.json')
+const db = flat('db.json')
 
 db._.mixin(require('underscore-db'))
 
-const postId = db('posts').insert({ title: 'low!' }).id
+const postId = db('posts').insert({ title: 'flat!' }).id
 const post = db('posts').getById(postId)
 ```
 
@@ -343,7 +343,7 @@ const post = db('posts').getById(postId)
 ```js
 const uuid = require('uuid')
 
-const postId = db('posts').push({ id: uuid(), title: 'low!' }).id
+const postId = db('posts').push({ id: uuid(), title: 'flat!' }).id
 const post = db('posts').find({ id: postId })
 ```
 
@@ -356,12 +356,12 @@ But it's also possible to specify custom `format.serializer` and `format.deseria
 For example, if you want to store database in `.bson` files ([MongoDB file format](https://github.com/mongodb/js-bson)):
 
 ```js
-const low = require('node-flat-db')
+const flat = require('node-flat-db')
 const storage = require('node-flat-db/file-sync')
 const bson = require('bson')
 const BSON = new bson.BSONPure.BSON()
 
-low('db.bson', { storage, format: {
+flat('db.bson', { storage, format: {
   serialize: BSON.serialize,
   deserialize: BSON.deserialize
 }})
@@ -369,7 +369,7 @@ low('db.bson', { storage, format: {
 // Alternative ES2015 short syntax
 const bson = require('bson')
 const format = new bson.BSONPure.BSON()
-low('db.bson', { storage, format })
+flat('db.bson', { storage, format })
 ```
 
 ### How to encrypt data
@@ -382,7 +382,7 @@ For example, using [cryptr](https://github.com/MauriceButler/cryptr):
 const Cryptr = require("./cryptr"),
 const cryptr = new Cryptr('my secret key')
 
-const db = low('db.json', {
+const db = flat('db.json', {
   format: {
     deserialize: (str) => {
       const decrypted = cryptr.decrypt(str)

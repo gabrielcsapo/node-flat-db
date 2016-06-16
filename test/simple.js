@@ -8,7 +8,7 @@ const storage = require('../src/file-sync')
 test('write', (t) => {
   const filename = tempfile()
   const db = low(filename, { storage })
-
+  
   db('foo').push(1)
 
   const actual = JSON.parse(fs.readFileSync(filename))
