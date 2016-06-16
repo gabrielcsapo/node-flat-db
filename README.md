@@ -408,6 +408,13 @@ node-flat-db is a convenient method for storing data without setting up a databa
 
 However, if you seek high performance and scalability more than simplicity, you should probably stick to traditional databases like MongoDB.
 
+## Benchmarks
+
+> `npm install microtime`
+
+`npm run benchmarks`
+
+
 ## License
 
 MIT - [Gabriel J. Csapo](https://github.com/gabrielcsapo)
