@@ -6,4 +6,5 @@ tmp
 /*.js
 .build
 dist
+benchmark/db.json
 !webpack.config.js
