@@ -1,4 +1,5 @@
 var fs = require('fs');
+var start = 0;
 var stats = {};
 var microtime = require('microtime');
 var filesize = require('filesize');
@@ -7,7 +8,7 @@ var storage = require('../src/file-sync');
 var db = flat('./benchmark/db.json', { storage: storage });
 
 for(var i = 1000; i > 0; i--) {
-    var start = microtime.now();
+    start = microtime.now();
     db('posts')
       .remove({ id: i });
     stats[i] = {
@@ -18,15 +19,15 @@ for(var i = 1000; i > 0; i--) {
 
 fs.writeFileSync('./benchmark/stats/delete.json', JSON.stringify(stats, null, 4));
 
-var stats = {};
-var storage = require('../src/file-compress-sync');
-var db = flat('./benchmark/db-compressed.json', { storage: storage });
+stats = {};
+storage = require('../src/file-compress-sync');
+db = flat('./benchmark/db-compressed.json', { storage: storage });
 
-for(var i = 1000; i > 0; i--) {
-    var start = microtime.now();
+for(var j = 1000; j > 0; j--) {
+    start = microtime.now();
     db('posts')
-      .remove({ id: i });
-    stats[i] = {
+      .remove({ id: j });
+    stats[j] = {
         time: microtime.now() - start,
         size: filesize(fs.statSync('./benchmark/db-compressed.json')['size'])
     };

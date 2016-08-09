@@ -1,5 +1,6 @@
 var fs = require('fs');
 var stats = {};
+var start = 0;
 var microtime = require('microtime');
 var filesize = require('filesize');
 var flat = require('../src/index');
@@ -7,7 +8,7 @@ var storage = require('../src/file-sync');
 var db = flat('./benchmark/db.json', { storage: storage });
 
 for(var i = 0; i < 1000; i++) {
-    var start = microtime.now();
+    start = microtime.now();
     db('posts')
       .chain()
       .find({ id: i })
@@ -20,15 +21,15 @@ for(var i = 0; i < 1000; i++) {
 
 fs.writeFileSync('./benchmark/stats/update.json', JSON.stringify(stats, null, 4));
 
-var stats = {};
-var storage = require('../src/file-compress-sync');
-var db = flat('./benchmark/db-compressed.json', { storage: storage });
+stats = {};
+storage = require('../src/file-compress-sync');
+db = flat('./benchmark/db-compressed.json', { storage: storage });
 
-for(var i = 0; i < 1000; i++) {
-    var start = microtime.now();
+for(var j = 0; j < 1000; j++) {
+    start = microtime.now();
     db('posts')
       .chain()
-      .find({ id: i })
+      .find({ id: j })
       .assign({ title: 'node-flat-db is awesome!++'});
     stats[i] = {
         time: microtime.now() - start,

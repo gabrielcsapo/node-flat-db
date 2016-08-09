@@ -6,6 +6,7 @@ tmp
 /*.js
 .build
 dist
+benchmark/stats
 benchmark/db.json
 benchmark/db-compressed.json
 !webpack.config.js

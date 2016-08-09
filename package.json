@@ -19,7 +19,7 @@
   "main": ".",
   "scripts": {
     "benchmark": "node benchmark/write.js;node benchmark/update.js; node benchmark/delete.js;",
-    "test": "babel-node test/all | tap-spec",
+    "test": "./node_modules/.bin/eslint .;babel-node test/all | tap-spec",
     "prepublish": "npm run build",
     "precommit": "npm test",
     "build": "cp src/** . && npm run umd && npm run min",
@@ -50,10 +50,10 @@
     "babel-loader": "^6.2.2",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-stage-3": "^6.3.13",
+    "eslint": "^3.2.2",
     "filesize": "^3.3.0",
     "husky": "^0.11.0",
     "sinon": "^1.17.2",
-    "standard": "^7.1.2",
     "tap-spec": "^4.1.1",
     "tape": "^4.2.2",
     "tempfile": "^1.1.1",
@@ -62,8 +62,5 @@
   },
   "engines": {
     "node": ">= 0.12"
-  },
-  "standard": {
-    "parser": "babel-eslint"
   }
 }
