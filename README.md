@@ -52,10 +52,10 @@ Using npm:
 npm install node-flat-db --save
 ```
 
-A standalone UMD build is also available on [npmcdn](https://npmcdn.com/):
+A standalone UMD build is also available on [unpkg](https://unpkg.com/):
 
 ```html
-<script src="http://npmcdn.com/node-flat-db@^0.2.0/dist/node-flat-db.min.js"></script>
+<script src="http://unpkg.com/node-flat-db@^0.2.0/dist/node-flat-db.min.js"></script>
 <script>
   var db = flat() // in-memory
   var db = flat('db', { storage: flat.localStorage }) // localStorage
