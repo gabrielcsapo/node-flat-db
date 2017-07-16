@@ -1,5 +1,7 @@
 # node-flat-db
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/gabrielcsapo/node-flat-db.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/gabrielcsapo/node-flat-db.svg?branch=master)](https://travis-ci.org/gabrielcsapo/node-flat-db)
 [![Npm Version](https://img.shields.io/npm/v/node-flat-db.svg)](https://www.npmjs.com/package/node-flat-db)
 [![Dependency Status](https://david-dm.org/gabrielcsapo/node-flat-db.svg)](https://david-dm.org/gabrielcsapo/node-flat-db)
