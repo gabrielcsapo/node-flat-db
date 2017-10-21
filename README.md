@@ -1,3 +1,5 @@
+> DEPRECATED: THIS WILL NO LONGER BE UNDER DEVELOPMENT
+
 # node-flat-db
 
 [![Build Status](https://travis-ci.org/gabrielcsapo/node-flat-db.svg?branch=master)](https://travis-ci.org/gabrielcsapo/node-flat-db)
